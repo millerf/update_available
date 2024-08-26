@@ -20,6 +20,8 @@ GetIOSPackageVersion httpGetIOSPackageVersion() {
 
     final client = HttpClient();
     final request = await client.getUrl(uri);
+    // Prevent server-side cache
+    request.headers.add(HttpHeaders.cacheControlHeader, "no-cache, no-store, must-revalidate");
     final response = await request.close();
     final responseBody = await response.transform(utf8.decoder).join();
 
